@@ -9,7 +9,8 @@ docker-compose up
 v049_latoken.currencyprovider.protocol.tron.jsonrpcapp - серверная часть.
 Все компоненты настронены.
 **049_latoken.currencyprovider.protocol.tron.jsonrpcapp**
-тестировать можно по адресу http://10.0.75.1:32777/api/trx
+тестировать можно по адресу 
+**http://10.0.75.1:32783/api/trx**
 
 ## Примеры запросов для ntcnbhjdfybz
 ```
