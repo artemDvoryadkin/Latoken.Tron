@@ -12,7 +12,7 @@ v049_latoken.currencyprovider.protocol.tron.jsonrpcapp - серверная ча
 тестировать можно по адресу 
 **http://10.0.75.1:32783/api/trx**
 
-## Примеры запросов для ntcnbhjdfybz
+## Примеры запросов для JSON RPC
 ```
 Only HTTP POST method is supported.
 
