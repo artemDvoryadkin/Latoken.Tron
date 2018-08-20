@@ -1,10 +1,11 @@
 # Итоги по заданию
 ## Как разворачивать
 В корне солюшена лежит файл docker-compose.yml нужно запустить докер компосе поднимится два контейнара. 
-fullnode - узел трона. Узел полность заливался за два часа.
+
+**fullnode** - узел трона. Узел полность заливался за два часа.
 v049_latoken.currencyprovider.protocol.tron.jsonrpcapp - серверная часть.
 Все компоненты настронены.
-049_latoken.currencyprovider.protocol.tron.jsonrpcapp
+**049_latoken.currencyprovider.protocol.tron.jsonrpcapp**
 тестировать можно по адресу http://10.0.75.1:32777/api/trx
 
 ## Примеры запросов для ntcnbhjdfybz
