@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RootNamespace>Latoken.CurrencyProvider.Protocol.Tron</RootNamespace>
+    <AssemblyName>Latoken.CurrencyProvider.Protocol.Tron</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="requirements\**" />
+    <EmbeddedResource Remove="requirements\**" />
+    <None Remove="requirements\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Api.CommonProtos" Version="1.3.0" />
+    <PackageReference Include="Google.Protobuf" Version="3.6.1" />
+    <PackageReference Include="Grpc" Version="1.14.1" />
+    <PackageReference Include="Grpc.Core" Version="1.14.1" />
+    <PackageReference Include="Grpc.Tools" Version="1.14.1" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="2.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Latoken.CurrencyProvider.Common\300_Latoken.CurrencyProvider.Common.csproj" />
+  </ItemGroup>
+
+</Project>

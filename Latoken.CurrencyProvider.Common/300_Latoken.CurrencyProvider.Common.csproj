@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>Latoken.CurrencyProvider.Common</AssemblyName>
+    <RootNamespace>Latoken.CurrencyProvider.Common</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BouncyCastle.Crypto.dll" Version="1.8.1" />
+    <PackageReference Include="BouncyCastle.NetCore" Version="1.8.2" />
+    <PackageReference Include="Grpc" Version="1.14.1" />
+    <PackageReference Include="HashLib" Version="2.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="SHA3" Version="1.0.0-rc" />
+    <PackageReference Include="SHA3.Net" Version="1.1.0" />
+    <PackageReference Include="System.Runtime.Numerics" Version="4.0.1" />
+  </ItemGroup>
+
+</Project>

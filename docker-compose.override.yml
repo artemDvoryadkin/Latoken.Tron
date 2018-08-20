@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  049_latoken.currencyprovider.protocol.tron.jsonrpcapp:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "80"

@@ -1,0 +1,214 @@
+﻿ICurrencyProvider (0.0.2) - общий интерфейс платежных систем
+
+/* Balances */
+/**
+* Получить доступный баланс по идентификатору (Адрес)
+* @param {string} address - Адрес для проверки баланса
+* @returns {BigInt} баланс счета в минимальных единицах валюты
+*/
+balanceByAddress(address: string): Promise<BigInt>;
+
+/* Validations */
+/**
+* Проверяет валидность адреса для данного провайдера
+* @param {string} address - Адрес для проверки
+* @returns {boolean} адрес является верным
+*/
+validateAddress(address: string): boolean;
+
+/* Transactions */
+/**
+* Функция определяет доступно ли локальное вычисление id (хэша) транзакции
+*/
+txOfflineExternalIdAvailable(): boolean;
+
+// Utils
+/**
+* Получить значение в минимальных единицах валюты
+* @param {string} base - значение для конвертации в десятичном представлении
+* @returns {BigInt} значение в минимальных единицах валюты
+*/
+toNativeNumber(base: string | number | BigInt): BigInt;
+
+/**
+* Получить значение в минимальных единицах валюты
+* @param {string} base - значение для конвертации
+* @returns {BigInt} значение в десятичном представлении
+*/
+fromNativeNumber(base: string): BigInt;
+
+/**
+* Получить доступный баланс базовой валюты к текущей по адресу (ETH для ERC20 / NEO для NEP5 / ...)
+* @param {string} address - Адрес для проверки мета-баланса
+* @returns {Promise<BigInt>} баланс счета в минимальных единицах валюты
+*/
+balanceMetaByAddress?(address: string): Promise<BigInt>;
+
+/**
+* Проверка входных данных на валидность и возможность создания транзакции
+* @param {object} options - параметры для создания транзакции. Отличаются для каждого платежного провайдера
+* @returns {boolean} успешность проверки параметров
+*/
+validateTransactionOptions(options: TransactionOptions): boolean;
+
+/**
+* Получить объект со статусом отправленной транзакции (receipt)
+* @returns {Promise<TransactionSendResult>} Объект с информацией о результате отправки
+*/
+txGetSendingResult(txid: string): Promise<TransactionSendResult>;
+
+
+==
+++
+__
+
+
+/**
+* Вычисление хэша транзакции до отправки в сеть
+* @param txHex - транзакция в hex представлении
+* @returns {string} id (hash) транзакции
+*/
+txGetOfflineExternalID?(txHex: string): string;
+
+/**
+* Получить информацию о транзакции (receipt)
+* @returns {object} Объект с информацией о транзакции
+*/
+txGetReceipt(txid: string): Promise<any>;
+
+/**
+* Получить список хэшей транзакций по адресу
+* @param {string} address
+* @returns {string} - ID/Hash транзакции
+*/
+txListHashByAddress(address: string): Promise<string>;
+
+
+/**
+* Получить идентификатор API RPC узла (url или hostname)
+* @returns {string} URL RPC узла
+*/
+getProviderAPIHost(): string;
+
+
+/**
+* Получить список транзакций по адресу
+* @param {string} address
+* @returns {TransactionReceipt} - объект описание транзакции
+*/
+txListByAddress(address: string): Promise<TransactionReceipt>;
+
+/**
+* Получить доступный баланс по идентификатору (Адрес) из БД
+* @param {string} address - Адрес для проверки баланса
+* @returns {BigInt} баланс счета в минимальных единицах валюты
+*/
+balanceByAddressDB?(address: string): Promise<BigInt>;
+
+
+/**
+* Проверка статуса транзакции (валидность receipt-а)
+* @param {object} address - Объект чека транзакции
+* @returns {boolean} Вадидность
+*/
+validateReceipt(receipt: any): boolean;
+
+========================
+
+
+
+
+
+
+
+// ICurrencyProvider v0.0.2
+
+export type BigInt = string;
+
+/**
+* Агент - сущность, отвечающая за 1 вывод в единицу времени
+* @param {string} address - Agent address (отправка с данного адреса - если применимо)
+* @param {string} privateKey - Private Key или API ключ
+*/
+export interface OutputAgent {
+address?: string;
+privateKey: string;
+}
+
+/**
+* Объект с параметрами получателя
+* @param {string} address - Blockchain адрес, или номер счета
+*/
+export interface TransactionCredentials {
+address: string;
+}
+
+/**
+* Параметры необходимые для создания транзакции. Зависит от провайдера
+* @param {OutputAgent} agent - экземпляр агента для отправки
+* @param {TransactionCredentials} credentials - параметры получателя
+* @param {BigInt} value - сумма операции
+*/
+export interface TransactionOptions {
+agent: OutputAgent;
+credentials: TransactionCredentials;
+value: BigInt;
+}
+
+/**
+* Универсальный интерфейс описания транзакции. Todo:
+*/
+export interface TransactionReceipt {}
+
+/**
+* Объект, возращаемый при создании транзакции
+* @param {string} data - Данные транзакции в hex представлении
+* @param {object} info - Дополнительные данные о транзакции (зависит от провайдера)
+*/
+export interface TransactonData {
+data: string;
+info: any;
+}
+
+export interface TransactionSendResult {
+status: 'processing' | 'sent' | 'error';
+error?: Error;
+info?: {
+id: string;
+message: string;
+sentTime: Date;
+};
+}
+
+export interface ICurrencyProvider {
+
+
+
+
+
+
+
+
+
+/**
+* Создание транзакции и сериализация её в виде пригодном для отправки в сеть
+* @param {object} options - параметры для создания транзакции. Отличаются для каждого платежного провайдера
+* @returns {TransactonData} сериализованная транзакция в hex + дополнительные данные
+*/
+txCreate(options: TransactionOptions): Promise<TransactonData>;
+
+/**
+* Отправка подготовленной транзакции в сеть
+* @param txHex - транзакция в hex представлении
+* @param txHash - id транзакции
+* @returns {boolean} успешность отправки
+*/
+txTransferRaw(txHex: string, txHash?: string): Promise<TransactionSendResult>;
+
+/**
+* Отправка транзакции в сеть. Выполняется checkTransactionParams + makeTransaction + transferRaw
+* @param {object} options - параметры для создания транзакции. Отличаются для каждого платежного провайдера
+* @returns {boolean} успешность отправки
+*/
+txTransfer?(options: TransactionOptions): Promise<TransactionSendResult>;
+

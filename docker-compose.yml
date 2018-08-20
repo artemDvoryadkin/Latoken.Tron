@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+    049_latoken.currencyprovider.protocol.tron.jsonrpcapp:
+        image: ${DOCKER_REGISTRY}049latokencurrencyproviderprotocoltronjsonrpcapp
+        build:
+            context: .
+            dockerfile: Latoken.CurrencyProvider.Protocol.Tron.JsonRpcApp/Dockerfile
+        depends_on:
+          - fullnode
+    fullnode:
+        build:
+            context: .
+            dockerfile: FullNodeDocker/Dockerfile
+        ports:
+          - "18888:18888"
+          - "50051:50051"
+          - "8090:8090"
+          - "10001:10001"
